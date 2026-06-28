@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const allPosts = import.meta.glob('../../blog/*.md', { eager: true });
+  const posts = Object.entries(allPosts).map(([path, post]: [string, any]) => ({
+    slug: path.split('/').pop()?.replace('.md', ''),
+    ...post.frontmatter,
+  }));
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const allPosts = import.meta.glob('../../blog/*.md', { eager: true });
+const postKey = Object.keys(allPosts).find(k => k.includes(post.slug));
+const postModule = postKey ? allPosts[postKey] : null;
+const Content = postModule?.default || null;
+---
+
+<BaseLayout title={post.title} description={post.description}>
+  <article class="max-w-3xl mx-auto">
+    <header class="mb-10">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {(post.tags || []).map((tag) => (
+          <span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">{post.title}</h1>
+      <time datetime={post.date} class="text-gray-500 text-sm">
+        {new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+    </header>
+
+    <div class="prose prose-invert prose-lg max-w-none
+      prose-headings:text-white prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+      prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
+      prose-blockquote:border-primary prose-blockquote:text-gray-400
+      prose-img:rounded-xl">
+      {Content && <Content />}
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-gray-800">
+      <a href={base + "blog/"} class="text-primary hover:text-accent transition-colors font-medium">
+        ← Zurück zum Blog
+      </a>
+    </div>
+  </article>
+</BaseLayout>
