@@ -1,0 +1,55 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  date: string;
+  description?: string;
+  tags?: string[];
+  image?: string;
+}
+
+const { title, date, description = '', tags = [], image } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('de-DE', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description} image={image}>
+  <article class="max-w-3xl mx-auto">
+    <header class="mb-10">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {tags.map((tag) => (
+          <span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">{title}</h1>
+      <time datetime={date} class="text-gray-500 text-sm">{formattedDate}</time>
+    </header>
+
+    {image && (
+      <div class="mb-8 rounded-xl overflow-hidden border border-gray-800">
+        <img src={image} alt={title} class="w-full" />
+      </div>
+    )}
+
+    <div class="prose prose-invert prose-lg max-w-none
+      prose-headings:text-white prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+      prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
+      prose-blockquote:border-primary prose-blockquote:text-gray-400
+      prose-img:rounded-xl">
+      <slot />
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-gray-800">
+      <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+        ← Zurück zum Blog
+      </a>
+    </div>
+  </article>
+</BaseLayout>
