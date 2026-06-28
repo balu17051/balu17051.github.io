@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Über mich">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Über mich</h1>
+    
+    <div class="prose prose-invert prose-lg max-w-none
+      prose-headings:text-white prose-a:text-primary">
+      
+      <p class="text-xl text-gray-300 mb-6">
+        Hey! Ich bin <strong class="text-white">Andreas</strong> — Tech-Enthusiast, Krypto-Interessierter und Automatisierungs-Fan.
+      </p>
+
+      <p>
+        Auf <strong>TechPulse</strong> teile ich meine Erfahrungen aus der Welt der Technologie, 
+        Kryptowährungen und der Automatisierung. Ob Smart Home mit TrueNAS, 
+        Trading-Bots auf Solana, oder KI-gestützte Blog-Automatisierung — 
+        ich probiere es aus und schreibe darüber.
+      </p>
+
+      <h2>Was dich hier erwartet</h2>
+      
+      <ul>
+        <li><strong>Tech & Gadgets</strong> — Hardware-Tests, Setups und Tipps</li>
+        <li><strong>Krypto & Trading</strong> — Praxisberichte aus der DeFi-Welt</li>
+        <li><strong>Automatisierung & DIY</strong> — Wenn der Computer die Arbeit macht</li>
+        <li><strong>KI & Tools</strong> — Was KI wirklich kann (und was nicht)</li>
+      </ul>
+
+      <h2>Meine Setup-Highlights</h2>
+      <ul>
+        <li>🏡 TrueNAS Docker-Server für Smart Home & Self-Hosting</li>
+        <li>🤖 KI-Automatisierung für Content-Erstellung</li>
+        <li>💰 Solana/Phantom Wallet für DeFi-Experimente</li>
+        <li>📝 Dieser Blog — automatisch generiert und auf GitHub Pages gehostet</li>
+      </ul>
+
+      <div class="mt-10 p-6 rounded-xl bg-gray-900 border border-gray-800">
+        <p class="text-gray-400 text-sm m-0">
+          💡 <strong class="text-white">Fun Fact:</strong> Dieser Blog wird mit Astro gebaut, 
+          auf GitHub Pages gehostet und komplett ohne Kosten betrieben. 
+          So muss Tech sein — effizient und kostenlos!
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
